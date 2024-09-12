@@ -1,0 +1,8 @@
+def argmax<N>(u32[N] a) -> u32 {
+    u32 mut max = 0;
+    for u32 i in 0..N {
+        max = if a[i] > a[max] {i} else {max};
+
+    }
+    return max;
+}

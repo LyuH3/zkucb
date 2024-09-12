@@ -1,0 +1,9 @@
+def rand(u32 seed, u32 mul, u32 inc, u32 mod) -> u32[500] {
+    u32 mut x = seed;
+    u32[500] mut num = [0; 500];
+    for u32 i in 0..500 {
+        x = (mul * x + inc) % mod;
+        num[i] = x;
+    }
+    return num;
+}

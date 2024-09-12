@@ -1,0 +1,88 @@
+def ln(u32 x) -> u32 {
+    u32 y = if x > 1316818942 { 
+        21 
+        } else { 
+            if x > 485165195 {
+                20
+            } else {
+                if x > 178482300 {
+                    19
+                } else {
+                    if x > 65659969 {
+                        18
+                    } else {
+                        if x > 24154952 {
+                            17
+                        } else {
+                            if x > 8886110 {
+                                16
+                            } else {
+                                if x > 3269017 {
+                                    15
+                                } else {
+                                    if x > 1202604 {
+                                        14
+                                    } else {
+                                        if x > 442413 {
+                                            13
+                                        } else {
+                                            if x > 162754 {
+                                                12
+                                            } else {
+                                                if x > 59874 {
+                                                    11
+                                                } else {
+                                                    if x > 22026 {
+                                                        10
+                                                    } else {
+                                                        if x > 8103 {
+                                                            9
+                                                        } else {
+                                                            if x > 2980 {
+                                                                8
+                                                            } else {
+                                                                if x > 1096 {
+                                                                    7
+                                                                } else {
+                                                                    if x > 403 {
+                                                                        6
+                                                                    } else {
+                                                                        if x > 148 {
+                                                                            5
+                                                                        } else {
+                                                                            if x > 54 {
+                                                                                4
+                                                                            } else {
+                                                                                if x > 20 {
+                                                                                    3
+                                                                                } else {
+                                                                                    if x > 7 {
+                                                                                        2
+                                                                                    } else {
+                                                                                        if x > 2 {
+                                                                                            1
+                                                                                        } else {
+                                                                                            0
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    return y;
+}

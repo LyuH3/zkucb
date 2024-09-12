@@ -1,0 +1,76 @@
+from "./ln" import ln;
+from "./sqrt" import sqrt;
+from "./rand" import rand;
+from "./argmax" import argmax;
+from "./sum" import sum;
+
+// Struct of rewards list and selected-arms list
+struct Records<N> {
+    u32[N] rewards;
+    u32[N] selected_arms;
+    u32[N] firstQ;
+    u32[N] secondQ;
+    u32[N] thirdQ;
+    u32[N] fourthQ;
+    u32[N] fifthQ;
+}
+
+def main (u32 seed, u32 qu) -> Records<NUMBER> {
+
+    // the random generator we need
+
+    // linear congruential generator
+    u32 a = 1314;  // Multiplier
+    u32 c = 137;  // Increment
+    u32 m = qu*2 - 1;  // Modulus 2147483647
+
+    // generate 500 random numbers prepared for use
+    u32[500] rand_nums = rand(seed, a, c, m);
+    // use t to store which random numbers are used
+    u32 mut t = 5;
+
+    // Scaling Parameters
+
+    u32 s = qu ;
+
+    // Set preset values for the three arms.
+
+    u32[5] preset = [90, 90, 100, 100, 110];
+
+    // Initalize the ucb
+    u32[5] mut ucb_Q = [0,0,0,0,0];
+    u32[5] mut ucb_N = [0,0,0,0,0];
+
+    u32 c = 2;
+    
+    // first attempt to pull every arm
+    for u32 i in 0..5 {
+        ucb_Q[i] = ((ucb_Q[i] * ucb_N[i] + ((sum(rand_nums[t+10..t+20])/10)*preset[i])/100) / (ucb_N[i] + 1));
+        ucb_N[i] = ucb_N[i] + 1;
+    }
+
+    u32[5] mut ucb_value = [0;5];
+    u32 mut best_arm = 0;
+    u32 mut reward = 0;
+    Records<NUMBER> mut r = Records {rewards: [0;NUMBER], selected_arms: [0;NUMBER], firstQ: [0;NUMBER], secondQ: [0;NUMBER], thirdQ: [0;NUMBER], fourthQ: [0;NUMBER], fifthQ: [0;NUMBER]};
+
+    for u32 i in 0..NUMBER {
+        for u32 j in 0..5 {
+            ucb_value[j] = ucb_Q[j] + c * sqrt(ln(t)/ucb_N[j]) * s;
+        }
+        r.firstQ[i] = ucb_value[0];//((sum(rand_nums[t+10..t+20])/10)*preset[0])/100;
+        r.secondQ[i] = ucb_value[1];//((sum(rand_nums[t+10..t+20])/10)*preset[1])/100;
+        r.thirdQ[i] = ucb_value[2];//((sum(rand_nums[t+10..t+20])/10)*preset[2])/100;
+        r.fourthQ[i] = ucb_value[3];//((sum(rand_nums[t+10..t+20])/10)*preset[3])/100;
+        r.fifthQ[i] = ucb_value[4];//((sum(rand_nums[t+10..t+20])/10)*preset[4])/100;
+        best_arm = argmax(ucb_value);
+        r.selected_arms[i] = best_arm;
+        reward = ((sum(rand_nums[t+10..t+20])/10)*preset[best_arm])/100;
+        ucb_Q[best_arm] = ((ucb_Q[best_arm] * ucb_N[best_arm] + reward) / (ucb_N[best_arm] + 1));
+        ucb_N[best_arm] = ucb_N[best_arm] + 1;
+        t = t + 1;
+        r.rewards[i] = reward;
+    }
+
+    return r;
+}

@@ -1,0 +1,11 @@
+def sqrt(u32 x) -> u32 {
+    u32 mut guess = if (x / 2) > 0 { x / 2 } else { 2097152 };
+    u32 mut new_guess = guess;
+    for u32 i in 0..20 {
+        new_guess = (guess + (x / guess)) / 2;
+        guess = if new_guess >= guess { guess } else { new_guess };
+    }
+    guess = if x == 0 { 0 } else { 
+        if x == 1 { 1 } else { guess }};
+    return guess;
+}
