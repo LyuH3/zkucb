@@ -14,9 +14,6 @@ class MAB:
 
     def pull(self, i):
         return np.random.normal(self.means[i], self.sigma)
-    
-    def reset(self):
-        self.means = np.random.normal(0, self.sigma, self.arms)
 
     def print_means(self):
         print("Means: ", self.means)
