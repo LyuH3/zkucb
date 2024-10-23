@@ -8,7 +8,7 @@ import numpy as np
 
 class MAB:
     def __init__(self):
-        self.arms = 33
+        self.arms = 3
         self.sigma = 1
         self.means = np.array([0.9, 1.0, 1.1])
 
